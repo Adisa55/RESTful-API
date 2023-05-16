@@ -1,0 +1,26 @@
+GET http://localhost:3000
+
+###
+
+GET http://localhost:3000/current?city=Viisooko
+
+###
+
+GET http://localhost:3000/forecast?city=viisooko
+
+###
+
+GET http://localhost:3000/air_pollution?lat=43.852&lon=500
+
+###
+
+GET http://localhost:3000/current?city=Sarajevo
+
+###
+
+GET http://localhost:3000/forecast?city=Sarajevo
+
+###
+
+GET http://localhost:3000/air_pollution?lat=43.852&lon=18.3867
+

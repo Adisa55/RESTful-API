@@ -1,0 +1,38 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "restfulapi",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/current": {
+        "get": {
+          "summary": "Get weather data by city name",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "city",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "Name of the city to get weather data for"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+ 

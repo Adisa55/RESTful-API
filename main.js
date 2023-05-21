@@ -3,6 +3,8 @@ const request = require('request');
 const expressWinston = require('express-winston');
 const swaggerJSDoc = require ('swagger-jsdoc');
 const swaggerUI = require ('swagger-ui-express');
+const basicAuth = require('express-basic-auth');
+const fs = require('fs');
 
 
 const app = express();
@@ -39,6 +41,27 @@ app.use(expressWinston.logger({
     winstonInstance: logger,
     statusLevels: true
 }))
+
+
+const usersData = fs.readFileSync('users.json');
+const users = JSON.parse(usersData).users;
+
+
+const usersObject = {};
+users.forEach(user => {
+  usersObject[user.username] = user.password;
+});
+
+
+app.use(basicAuth({
+	authorizer: (username, password) => {
+		return usersObject[username] === password;
+	  },
+	  challenge: true,
+	  unauthorizedResponse: 'Unauthorized (username or password is incorrect)'
+}));
+
+
 
 /**
  * @swagger
@@ -170,3 +193,4 @@ app.get('/air_pollution', cache(400), (requ, responsee) => {
 });
 
 app.listen(5000, () => console.log('Server started on port 5000'));
+

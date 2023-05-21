@@ -61,3 +61,10 @@ A tool for developing interactive API documentation is called Swagger. Title for
 
 Using the method of caching, expensive or time-consuming activities can be saved so that later requests for the same operation can be fulfilled without having to repeat it.
 In this case I put cache(400) - cache duration, that is approximatelly 6 minutes and 40 secundes.
+
+
+Implementing authentication:
+In .json file, there are some usernames and passwords that must be entered to acces URL: http://localhost:5000/.
+For example:
+username: adisa
+password: cvijet123 , is one of the options. If user enter the wronf username or password, he/she cannot see the weather.

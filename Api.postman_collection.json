@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "82c7efbd-66bd-4f70-a8e5-cc987ccb2dec",
+		"name": "Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25025054"
+	},
+	"item": [
+		{
+			"name": "Current",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/current?city=Sarajevo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Sarajevo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forecast",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/forecast?city=Sarajevo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"forecast"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Sarajevo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InvalidLocation(Current)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/current?city=Viisooko",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"current"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Viisooko"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InvalidLocation(Forecast}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/forecast?city=viisooko",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"forecast"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "viisooko"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AirPollution",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/air_pollution?lat=43.852&lon=18.3867",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"air_pollution"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "43.852"
+						},
+						{
+							"key": "lon",
+							"value": "18.3867"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InvalidCoordinates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/air_pollution?lat=43.852&lon=500",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"air_pollution"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "43.852"
+						},
+						{
+							"key": "lon",
+							"value": "500"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api-docs/#/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api-docs",
+						""
+					],
+					"hash": "/"
+				}
+			},
+			"response": []
+		}
+	]
+}

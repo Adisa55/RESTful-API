@@ -7,20 +7,21 @@ const swaggerUI = require ('swagger-ui-express');
 
 const app = express();
 
+
 const options = {
-	swaggerDefinition: {
-		openapi: '3.0.0',
-		info :{
-			title: 'API - homework',
-			version: '1.0.0'
-		},
-		servers : [
-			{
-				url: 'http://localhost:5000/'
-			}
-		]
-	},
-	apis: ['./main.js']
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info :{
+            title: 'API - homework',
+            version: '1.0.0'
+        },
+        servers : [
+            {
+                url: 'http://localhost:5000/'
+            }
+        ]
+    },
+    apis: ['./main.js']
 }
 
 const swaggerSpecification = swaggerJSDoc(options);
@@ -30,6 +31,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecification));
 
 const logger = require('./logging');
 const { version } = require('winston');
+const res = require('res');
+const cache = require('./Caching');
 
 
 app.use(expressWinston.logger({
@@ -58,22 +61,22 @@ app.use(expressWinston.logger({
  *               type: string
  */
 
-app.get('/current', (requ, responsee) => {
-	let city = requ.query.city;
-	var request = require('request');
-	request(
-		`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=0d9f5b653bf425205b8920bd722529c4`,
-		function(errors, resPonse, info) {
-			let data = JSON.parse(info);
-			if (!errors && resPonse.statusCode === 200) {
-				responsee.send(`In your city "${city}" the weather is ${data.weather[0].description}!`);
-			}
+app.get('/current', cache(400), (requ, responsee) => {
+    let city = requ.query.city;
+    var request = require('request');
+    request(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=0d9f5b653bf425205b8920bd722529c4`,
+        function(errors, resPonse, info) {
+            let data = JSON.parse(info);
+            if (!errors && resPonse.statusCode === 200) {
+                responsee.send(`In your city "${city}" the weather is ${data.weather[0].description}!`);
+            }
             else {
                 responsee.status(resPonse.statusCode).send('Invalid location, please try again!');
             }
-		}
+        }
 
-	);
+    );
 
 });
 
@@ -98,22 +101,22 @@ app.get('/current', (requ, responsee) => {
  *               type: string
  */
 
-app.get('/forecast', (requ, responsee) => {
-	let city = requ.query.city;
-	var request = require('request');
-	request(
-		`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=0d9f5b653bf425205b8920bd722529c4`,
-		function(errors, resPonse, info) {
-			let data = JSON.parse(info);
-			if (!errors && resPonse.statusCode === 200) {
-				responsee.send(`In your city "${city}" the weather is ${data.list[0].weather[0].description}!`);
-			}
+app.get('/forecast', cache(400), (requ, responsee) => {
+    let city = requ.query.city;
+    var request = require('request');
+    request(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=0d9f5b653bf425205b8920bd722529c4`,
+        function(errors, resPonse, info) {
+            let data = JSON.parse(info);
+            if (!errors && resPonse.statusCode === 200) {
+                responsee.send(`In your city "${city}" the weather is ${data.list[0].weather[0].description}!`);
+            }
             else {
                 responsee.status(resPonse.statusCode).send('Invalid location, please try again!');
             }
-		}
+        }
 
-	);
+    );
 
 });
 
@@ -144,25 +147,25 @@ app.get('/forecast', (requ, responsee) => {
  *               type: string
  */
 
-app.get('/air_pollution', (requ, responsee) => {
-	let lat = requ.query.lat;
+app.get('/air_pollution', cache(400), (requ, responsee) => {
+    let lat = requ.query.lat;
     let lon = requ.query.lon;
-	var request = require('request');
-	request(
-		`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=0d9f5b653bf425205b8920bd722529c4`,
-		function(errors, resPonse, info) {
-			let data = JSON.parse(info);
-			if (!errors && resPonse.statusCode === 200) {
-				responsee.send(`The air pollution of the given location (lat=${lat} and lon=${lon}) is ${data.list[0].main.aqi} ( Air Quality Index). The component are: 
+    var request = require('request');
+    request(
+        `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=0d9f5b653bf425205b8920bd722529c4`,
+        function(errors, resPonse, info) {
+            let data = JSON.parse(info);
+            if (!errors && resPonse.statusCode === 200) {
+                responsee.send(`The air pollution of the given location (lat=${lat} and lon=${lon}) is ${data.list[0].main.aqi} ( Air Quality Index). The component are: 
                 CO: ${data.list[0].components.co}, NO: ${data.list[0].components.no},  NO2: ${data.list[0].components.no2},  O3: ${data.list[0].components.o3},  SO2: ${data.list[0].components.so2},
                 PM2.5: ${data.list[0].components.pm2_5}, PM10: ${data.list[0].components.pm10}, NH3: ${data.list[0].components.nh3}. `);
-			}
+            }
             else {
                 responsee.status(resPonse.statusCode).send('Invalid location, please try again!');
             }
-		}
+        }
 
-	);
+    );
 
 });
 

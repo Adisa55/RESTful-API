@@ -1,0 +1,20 @@
+{
+    "users": [
+      {
+        "username": "adisa",
+        "password": "cvijet123"
+      },
+      {
+        "username": "ajla",
+        "password": "kutija123"
+      },
+      {
+        "username": "merima",
+        "password": "orhideja123"
+      },
+      {
+        "username": "almina",
+        "password": "kabanica123"
+      }
+    ]
+  }
